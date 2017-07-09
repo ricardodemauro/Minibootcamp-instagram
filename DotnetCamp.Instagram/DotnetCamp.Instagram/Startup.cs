@@ -12,13 +12,18 @@ using Microsoft.Extensions.Logging;
 using DotnetCamp.Instagram.Data;
 using DotnetCamp.Instagram.Models;
 using DotnetCamp.Instagram.Services;
+using System.IO;
 
 namespace DotnetCamp.Instagram
 {
     public class Startup
     {
+        private IHostingEnvironment _env;
+
         public Startup(IHostingEnvironment env)
         {
+            _env = env;
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -52,6 +57,8 @@ namespace DotnetCamp.Instagram
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            services.AddScoped<IFileService>((sp) => new FileService(Path.Combine(_env.WebRootPath, "cdn\\pic")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

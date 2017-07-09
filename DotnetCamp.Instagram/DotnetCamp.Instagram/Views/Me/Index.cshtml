@@ -1,0 +1,33 @@
+@model IEnumerable<DotnetCamp.Instagram.Models.Picture>
+
+    @{
+        ViewData["Title"] = "View";
+    }
+
+    <h2>View</h2>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <div class="insta-timeline">
+        @foreach (var item in Model)
+        {
+            <article class="insta-article">
+                <header class="insta-header">
+                    <div>
+                        <p>
+                            <a asp-for="@item.UserId">@item.UserId</a>
+                            </p>
+                        <p>
+                            @item.Description
+                        </p>
+                        </div>
+                    </header>
+                    <div class="insta-container">
+                        <div>
+                            <img src="@item.FilePath" class="insta-img" />
+                        </div>
+                    </div>
+                </article>
+        }
+    </div>

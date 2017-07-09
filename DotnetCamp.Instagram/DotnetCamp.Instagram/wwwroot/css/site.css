@@ -48,3 +48,41 @@ textarea {
         display: none;
     }
 }
+
+div.insta-timeline {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    margin-left: -1px;
+    margin-right: -1px;
+}
+
+article.insta-article {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    margin-bottom: 60px;
+}
+
+article > div.insta-container {
+    width: 550px;
+    height: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+article.insta-article > header.insta-header {
+    height: 60px;
+    padding: 5px;
+    background-color: whitesmoke;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #efefef;
+}
+
+article.insta-article > div.insta-container > div > img.insta-img {
+    width: 550px;
+    height: 550px;
+}
