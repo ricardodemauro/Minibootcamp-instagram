@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using DotnetCamp.Instagram.Data;
 
-namespace DotnetCamp.Instagram.Data.Migrations
+namespace DotnetCamp.Instagram.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170709213951_Add-Picture")]
-    partial class AddPicture
+    [Migration("20170727131050_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.1.1")
+                .HasAnnotation("ProductVersion", "1.1.2")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DotnetCamp.Instagram.Models.ApplicationUser", b =>

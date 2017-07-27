@@ -13,6 +13,8 @@ using DotnetCamp.Instagram.Data;
 using DotnetCamp.Instagram.Models;
 using DotnetCamp.Instagram.Services;
 using System.IO;
+using DotnetCamp.Instagram.Storage;
+using DotnetCamp.Instagram.Storage.Disk;
 
 namespace DotnetCamp.Instagram
 {
@@ -58,7 +60,7 @@ namespace DotnetCamp.Instagram
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
-            services.AddScoped<IFileService>((sp) => new FileService(Path.Combine(_env.WebRootPath, "cdn\\pic")));
+            services.AddScoped<IFileStorage>((sp) => new DiskStorage(Path.Combine(_env.WebRootPath, "cdn\\pic")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

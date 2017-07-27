@@ -9,6 +9,7 @@ using DotnetCamp.Instagram.Services;
 using DotnetCamp.Instagram.Data;
 using Microsoft.AspNetCore.Identity;
 using System.IO;
+using DotnetCamp.Instagram.Storage;
 
 namespace DotnetCamp.Instagram.Controllers
 {
@@ -16,10 +17,10 @@ namespace DotnetCamp.Instagram.Controllers
     {
         private const string ME_ACTION = "Me";
 
-        private readonly IFileService _fileService;
+        private readonly IFileStorage _fileService;
         private readonly ApplicationDbContext _dbContext;
 
-        public MeController(IFileService fileService,
+        public MeController(IFileStorage fileService,
             ApplicationDbContext dbcontext,
             UserManager<ApplicationUser> userManager)
             : base(userManager)
@@ -50,18 +51,17 @@ namespace DotnetCamp.Instagram.Controllers
         {
             if (ModelState.IsValid)
             {
+                using (Stream fs = model.Picture.OpenReadStream())
+                {
+                    await _fileService.AddAsync(model.Picture.FileName, fs);
+                }
                 var picture = new Picture
                 {
                     Date = DateTime.UtcNow,
                     Description = model.Description,
                     UserId = GetUserId(),
-                    FilePath = "/cdn/pic/" + model.Picture.FileName
+                    FilePath = $"/pic/{model.Picture.FileName}"
                 };
-
-                using (Stream fs = model.Picture.OpenReadStream())
-                {
-                    await _fileService.SaveAsync(fs, model.Picture.FileName);
-                }
                 _dbContext.Picture.Add(picture);
                 await _dbContext.SaveChangesAsync();
             }
