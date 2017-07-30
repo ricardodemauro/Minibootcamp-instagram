@@ -1,0 +1,63 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800");
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
+*, *:before, *:after {
+  box-sizing: border-box; }
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 10pt;
+  color: #333;
+  line-height: normal;
+  font-smoothing: antialiased; }
+
+#header {
+  position: relative;
+  width: 100vw;
+  padding: 25px;
+  border-top: 10px solid #9D6D55; }
+  #header h1 {
+    font-size: 30pt;
+    color: #9D6D55; }
+
+#content {
+  position: relative;
+  width: 100vw;
+  display: flex;
+  flex-flow: row wrap; }
+  #content .post {
+    position: relative;
+    width: 25vw;
+    height: 25vw;
+    background: #000;
+    display: block;
+    overflow: hidden; }
+    #content .post .image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-position: center;
+      background-size: cover;
+      transition: all .15s ease-in-out; }
+    #content .post ul {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background: rgba(157, 109, 85, 0.8);
+      display: flex;
+      justify-content: space-around;
+      transform: translateY(-100%);
+      transition: all .15s ease-in-out;
+      color: #FFF; }
+      #content .post ul li {
+        text-align: center;
+        line-height: 50px; }
+    #content .post:hover .image {
+      opacity: .5;
+      transform: scale(1.15) translate3d(0, 0, 0); }
+    #content .post:hover ul {
+      transform: translateX(0); }
+

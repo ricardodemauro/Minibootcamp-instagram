@@ -1,33 +1,23 @@
 @model IEnumerable<DotnetCamp.Instagram.Models.Picture>
 
-    @{
-        ViewData["Title"] = "View";
+@{
+    ViewData["Title"] = "View";
+}
+
+<header id='header'>
+    <h1>INSTAGRAM</h1>
+    <p>Display your Instagram photos on your website with a little Javascript.</p>
+</header>
+<section id='content'>
+    @foreach (var item in Model)
+    {
+        <a href="#" class="post">
+            <div class="image" style="background-image:url('@item.FilePath');"></div>
+            <ul>
+                <li><i class="fa fa-camera"></i>Normal</li>
+                <li><i class="fa fa-heart"></i>5</li>
+                <li><i class="fa fa-comment"></i>0</li>
+            </ul>
+        </a>
     }
-
-    <h2>View</h2>
-
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <div class="insta-timeline">
-        @foreach (var item in Model)
-        {
-            <article class="insta-article">
-                <header class="insta-header">
-                    <div>
-                        <p>
-                            <a asp-for="@item.UserId">@item.UserId</a>
-                            </p>
-                        <p>
-                            @item.Description
-                        </p>
-                        </div>
-                    </header>
-                    <div class="insta-container">
-                        <div>
-                            <img src="@item.FilePath" class="insta-img" />
-                        </div>
-                    </div>
-                </article>
-        }
-    </div>
+</section>
