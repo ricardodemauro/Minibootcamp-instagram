@@ -1,31 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
-
-$accent: #9D6D55;
-
-*, *:before, *:after {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 10pt;
-    color: #333;
-    line-height: normal;
-    font-smoothing: antialiased;
-}
-
-#header {
-    position: relative;
-    width: 100vw;
-    padding: 25px;
-    border-top: 10px solid $accent;
-
-    h1 {
-        font-size: 30pt;
-        color: $accent;
-    }
-}
+﻿$accent: #9D6D55;
 
 #content {
     position: relative;

@@ -41,6 +41,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DotnetCamp.Instagram.Identity\DotnetCamp.Instagram.Identity.csproj" />
+    <ProjectReference Include="..\DotnetCamp.Instagram.Models\DotnetCamp.Instagram.Models.csproj" />
+    <ProjectReference Include="..\DotnetCamp.Instagram.Repository\DotnetCamp.Instagram.Repository.csproj" />
     <ProjectReference Include="..\DotnetCamp.Instagram.Storage.Disk\DotnetCamp.Instagram.Storage.Disk.csproj" />
     <ProjectReference Include="..\DotnetCamp.Instagram.Storage\DotnetCamp.Instagram.Storage.csproj" />
   </ItemGroup>

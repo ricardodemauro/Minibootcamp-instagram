@@ -1,4 +1,5 @@
-﻿using DotnetCamp.Instagram.Models;
+﻿using DotnetCamp.Instagram.Identity;
+using DotnetCamp.Instagram.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -20,7 +21,7 @@ namespace DotnetCamp.Instagram.Controllers
         protected string GetUserId()
         {
 #if DEBUG
-            return "Ricardo";
+            return "USER";
 #else
             return _userManager.GetUserId(HttpContext.User);
 #endif

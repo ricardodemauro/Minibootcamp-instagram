@@ -146,3 +146,12 @@ article.insta-article > div.insta-container > div > img.insta-img {
         #content .post:hover ul {
             transform: translateX(0);
         }
+
+#dropZone {
+    background: gray;
+    border: black dashed 3px;
+    width: 200px;
+    padding: 50px;
+    text-align: center;
+    color: white;
+}

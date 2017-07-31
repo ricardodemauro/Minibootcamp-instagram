@@ -4,11 +4,16 @@
     ViewData["Title"] = "View";
 }
 
-<header id='header'>
+<header id="header">
     <h1>INSTAGRAM</h1>
     <p>Display your Instagram photos on your website with a little Javascript.</p>
 </header>
-<section id='content'>
+
+<section class="actions">
+    <a asp-controller="Me" asp-action="Upload" class="btn btn-default">Upload</a>
+</section>
+
+<section id="content">
     @foreach (var item in Model)
     {
         <a href="#" class="post">

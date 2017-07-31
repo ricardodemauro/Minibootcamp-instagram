@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DotnetCamp.Instagram.Identity;
+using DotnetCamp.Instagram.Repository.Database;
+using DotnetCamp.Instagram.Services;
+using DotnetCamp.Instagram.Storage;
+using DotnetCamp.Instagram.Storage.Disk;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -9,12 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using DotnetCamp.Instagram.Data;
-using DotnetCamp.Instagram.Models;
-using DotnetCamp.Instagram.Services;
+using DotnetCamp.Instagram.Repository;
 using System.IO;
-using DotnetCamp.Instagram.Storage;
-using DotnetCamp.Instagram.Storage.Disk;
 
 namespace DotnetCamp.Instagram
 {
@@ -59,6 +56,8 @@ namespace DotnetCamp.Instagram
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            services.AddRepository();
 
             services.AddScoped<IFileStorage>((sp) => new DiskStorage(Path.Combine(_env.WebRootPath, "cdn\\pic")));
         }

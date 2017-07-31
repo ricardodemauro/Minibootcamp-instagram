@@ -1,2 +1,6 @@
 Html Template
 https://codepen.io/WhiteWolfWizard/pen/wgtdK
+
+Dropzone
+http://www.dropzonejs.com/
+http://www.venkatbaggu.com/file-upload-in-asp-net-mvc-using-dropzone-js-and-html5/

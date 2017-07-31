@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DotnetCamp.Instagram.Identity;
+using DotnetCamp.Instagram.Models.ManageViewModels;
+using DotnetCamp.Instagram.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using DotnetCamp.Instagram.Models;
-using DotnetCamp.Instagram.Models.ManageViewModels;
-using DotnetCamp.Instagram.Services;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DotnetCamp.Instagram.Controllers
 {

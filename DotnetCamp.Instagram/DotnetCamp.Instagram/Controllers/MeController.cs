@@ -1,15 +1,17 @@
+using DotnetCamp.Instagram.Identity;
+using DotnetCamp.Instagram.Models;
+using DotnetCamp.Instagram.Models.MeViewModels;
+using DotnetCamp.Instagram.Repository;
+using DotnetCamp.Instagram.Storage;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using DotnetCamp.Instagram.Models.MeViewModels;
-using DotnetCamp.Instagram.Models;
-using DotnetCamp.Instagram.Services;
-using DotnetCamp.Instagram.Data;
-using Microsoft.AspNetCore.Identity;
-using System.IO;
-using DotnetCamp.Instagram.Storage;
 
 namespace DotnetCamp.Instagram.Controllers
 {
@@ -18,24 +20,24 @@ namespace DotnetCamp.Instagram.Controllers
         private const string ME_ACTION = "Me";
 
         private readonly IFileStorage _fileService;
-        private readonly ApplicationDbContext _dbContext;
+        private readonly IPictureRepository _pictureRepository;
+        private readonly ILogger _logger;
 
         public MeController(IFileStorage fileService,
-            ApplicationDbContext dbcontext,
-            UserManager<ApplicationUser> userManager)
+            IPictureRepository pictureRepository,
+            UserManager<ApplicationUser> userManager,
+            ILogger<MeController> logger)
             : base(userManager)
         {
             _fileService = fileService;
-            _dbContext = dbcontext;
+            _pictureRepository = pictureRepository;
         }
 
         [HttpGet(Name = ME_ACTION)]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var userId = GetUserId();
-            var picColl = _dbContext.Picture
-                .Where(p => p.UserId == userId)
-                .ToList();
+            var picColl = await _pictureRepository.FindByUserAsync(userId);
             return View(picColl);
         }
 
@@ -62,11 +64,52 @@ namespace DotnetCamp.Instagram.Controllers
                     UserId = GetUserId(),
                     FilePath = $"/pic/{model.Picture.FileName}"
                 };
-                _dbContext.Picture.Add(picture);
-                await _dbContext.SaveChangesAsync();
+                await _pictureRepository.AddAsync(picture);
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            try
+            {
+                foreach (IFormFile file in Request.Form.Files)
+                {
+                    //Save file content goes here
+                    fName = file.FileName;
+
+                    using (Stream fs = file.OpenReadStream())
+                    {
+                        await _fileService.AddAsync(file.FileName, fs);
+                    }
+                    var picture = new Picture
+                    {
+                        Date = DateTime.UtcNow,
+                        Description = file.FileName,
+                        UserId = GetUserId(),
+                        FilePath = $"/pic/{file.FileName}"
+                    };
+                    await _pictureRepository.AddAsync(picture);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error trying to process {nameof(SaveUploadedFile)} method. Exception --> {ex.Message}");
+                isSavedSuccessfully = false;
+            }
+
+            if (isSavedSuccessfully)
+            {
+                return Ok(new { Message = fName });
+            }
+            else
+            {
+                return Ok(new { Message = "Error in saving file" });
+            }
         }
     }
 }
