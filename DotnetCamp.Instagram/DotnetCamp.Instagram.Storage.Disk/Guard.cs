@@ -23,7 +23,7 @@ namespace DotnetCamp.Instagram.Storage.Disk
 
         internal static void FileFormat(string argument, string argumentName)
         {
-            if (!Regex.IsMatch(argument, @"^[\w\d]+\.\w{3}", RegexOptions.Singleline))
+            if (!Regex.IsMatch(argument, @"^[\w\d-_]+\.\w{3}", RegexOptions.Singleline))
                 throw new ArgumentException("Argument using incorrect format", argumentName);
         }
     }
