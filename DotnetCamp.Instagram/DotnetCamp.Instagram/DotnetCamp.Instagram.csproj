@@ -12,6 +12,10 @@
     <UserSecretsId>aspnet-DotnetCamp.Instagram-a9c86391-9f47-499b-9ba0-03b504dcc1ca</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NETCOREAPP1_1</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Include="wwwroot\cdn\pic\empty.txt" />
     <Content Include="wwwroot\css\dropzone.scss" />
@@ -19,6 +23,8 @@
     <Content Include="wwwroot\css\site.min.css" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="1.1.2" />
@@ -41,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotnetCamp.Instagram.Identity\DotnetCamp.Instagram.Identity.csproj" />
-    <ProjectReference Include="..\DotnetCamp.Instagram.Models\DotnetCamp.Instagram.Models.csproj" />
     <ProjectReference Include="..\DotnetCamp.Instagram.Repository\DotnetCamp.Instagram.Repository.csproj" />
     <ProjectReference Include="..\DotnetCamp.Instagram.Storage.Disk\DotnetCamp.Instagram.Storage.Disk.csproj" />
     <ProjectReference Include="..\DotnetCamp.Instagram.Storage\DotnetCamp.Instagram.Storage.csproj" />

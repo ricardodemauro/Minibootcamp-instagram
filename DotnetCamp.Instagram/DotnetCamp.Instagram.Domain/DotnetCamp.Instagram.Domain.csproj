@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DotnetCamp.Instagram.DTO\DotnetCamp.Instagram.DTO.csproj" />
+    <ProjectReference Include="..\DotnetCamp.Instagram.Storage\DotnetCamp.Instagram.Storage.csproj" />
+  </ItemGroup>
+
+</Project>

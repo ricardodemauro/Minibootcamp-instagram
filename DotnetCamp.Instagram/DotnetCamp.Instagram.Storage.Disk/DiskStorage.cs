@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DotnetCamp.Instagram.Storage.Disk
 {
-    public class DiskStorage : IFileStorage
+    public class DiskStorage : IStorageService
     {
         private readonly string _baseDirectory;
 

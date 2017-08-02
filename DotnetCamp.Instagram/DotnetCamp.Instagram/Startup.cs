@@ -1,4 +1,7 @@
-﻿using DotnetCamp.Instagram.Identity;
+﻿using DotnetCamp.Instagram.Domain;
+using System.Linq;
+using AutoMapper;
+using DotnetCamp.Instagram.Identity;
 using DotnetCamp.Instagram.Repository.Database;
 using DotnetCamp.Instagram.Services;
 using DotnetCamp.Instagram.Storage;
@@ -12,6 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using DotnetCamp.Instagram.Repository;
 using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyModel;
+using System.Reflection;
 
 namespace DotnetCamp.Instagram
 {
@@ -43,6 +49,8 @@ namespace DotnetCamp.Instagram
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             // Add framework services.
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -59,7 +67,16 @@ namespace DotnetCamp.Instagram
 
             services.AddRepository();
 
-            services.AddScoped<IFileStorage>((sp) => new DiskStorage(Path.Combine(_env.WebRootPath, "cdn\\pic")));
+            services.AddCurrentUserService();
+
+            services.AddDomainServices();
+
+            DependencyContext dependencyContext = DependencyContext.Default;
+            Assembly[] assemblyColl = dependencyContext.RuntimeLibraries
+                .SelectMany(lib => lib.GetDefaultAssemblyNames(dependencyContext).Select(Assembly.Load)).ToArray();
+            services.AddAutoMapper(assemblyColl);
+
+            services.AddScoped<IStorageService>((sp) => new DiskStorage(Path.Combine(_env.WebRootPath, "cdn\\pic")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

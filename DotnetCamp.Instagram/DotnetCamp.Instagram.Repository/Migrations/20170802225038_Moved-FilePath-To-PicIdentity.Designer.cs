@@ -8,9 +8,10 @@ using DotnetCamp.Instagram.Repository.Database;
 namespace DotnetCamp.Instagram.Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170802225038_Moved-FilePath-To-PicIdentity")]
+    partial class MovedFilePathToPicIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

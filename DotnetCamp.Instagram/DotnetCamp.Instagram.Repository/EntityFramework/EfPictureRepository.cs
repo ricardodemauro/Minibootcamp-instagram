@@ -1,12 +1,11 @@
-﻿using System;
+﻿using DotnetCamp.Instagram.Domain.Entities;
+using DotnetCamp.Instagram.Domain.Interfaces.Repositories;
+using DotnetCamp.Instagram.Repository.Database;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DotnetCamp.Instagram.Models;
-using Microsoft.EntityFrameworkCore;
-using DotnetCamp.Instagram.Repository.Database;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DotnetCamp.Instagram.Repository.EntityFramework
 {

@@ -1,73 +1,39 @@
-using DotnetCamp.Instagram.Identity;
-using DotnetCamp.Instagram.Models;
-using DotnetCamp.Instagram.Models.MeViewModels;
-using DotnetCamp.Instagram.Repository;
-using DotnetCamp.Instagram.Storage;
+using DotnetCamp.Instagram.Domain.Interfaces.Services;
+using DotnetCamp.Instagram.DTO.Profile;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DotnetCamp.Instagram.Controllers
 {
-    public class MeController : ControllerBase
+    public class MeController : Controller
     {
         private const string ME_ACTION = "Me";
 
-        private readonly IFileStorage _fileService;
-        private readonly IPictureRepository _pictureRepository;
+        private readonly IProfileService _profileService;
         private readonly ILogger _logger;
 
-        public MeController(IFileStorage fileService,
-            IPictureRepository pictureRepository,
-            UserManager<ApplicationUser> userManager,
+        public MeController(IProfileService profileService,
             ILogger<MeController> logger)
-            : base(userManager)
         {
-            _fileService = fileService;
-            _pictureRepository = pictureRepository;
+            _profileService = profileService;
+            _logger = logger;
         }
 
         [HttpGet(Name = ME_ACTION)]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 0)
         {
-            var userId = GetUserId();
-            var picColl = await _pictureRepository.FindByUserAsync(userId);
+            var picColl = await _profileService.GetPicturesStream(page);
             return View(picColl);
         }
 
         [HttpGet]
-        public IActionResult Upload()
+        public IActionResult Create()
         {
             return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upload(UploadPictureViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                using (Stream fs = model.Picture.OpenReadStream())
-                {
-                    await _fileService.AddAsync(model.Picture.FileName, fs);
-                }
-                var picture = new Picture
-                {
-                    Date = DateTime.UtcNow,
-                    Description = model.Description,
-                    UserId = GetUserId(),
-                    FilePath = $"/pic/{model.Picture.FileName}"
-                };
-                await _pictureRepository.AddAsync(picture);
-            }
-
-            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
@@ -82,18 +48,15 @@ namespace DotnetCamp.Instagram.Controllers
                     //Save file content goes here
                     fName = file.FileName;
 
+                    CreatePictureDTO dto = new CreatePictureDTO();
+                    dto.Description = fName;
+
                     using (Stream fs = file.OpenReadStream())
                     {
-                        await _fileService.AddAsync(file.FileName, fs);
+                        dto.Picture = file.OpenReadStream();
                     }
-                    var picture = new Picture
-                    {
-                        Date = DateTime.UtcNow,
-                        Description = file.FileName,
-                        UserId = GetUserId(),
-                        FilePath = $"/pic/{file.FileName}"
-                    };
-                    await _pictureRepository.AddAsync(picture);
+
+                    await _profileService.AddPicture(dto); ;
                 }
             }
             catch (Exception ex)

@@ -1,4 +1,4 @@
-@model IEnumerable<DotnetCamp.Instagram.Models.Picture>
+@model IEnumerable<DotnetCamp.Instagram.DTO.PictureDTO>
 
 @{
     ViewData["Title"] = "View";
@@ -17,7 +17,7 @@
     @foreach (var item in Model)
     {
         <a href="#" class="post">
-            <div class="image" style="background-image:url('@item.FilePath');"></div>
+            <div class="image" style="background-image:url('@item.PicIdentity');"></div>
             <ul>
                 <li><i class="fa fa-camera"></i>Normal</li>
                 <li><i class="fa fa-heart"></i>5</li>

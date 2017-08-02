@@ -1,12 +1,7 @@
-﻿using DotnetCamp.Instagram.Identity;
-using DotnetCamp.Instagram.Models;
+﻿using DotnetCamp.Instagram.Domain.Entities;
+using DotnetCamp.Instagram.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotnetCamp.Instagram.Repository.Database
 {
@@ -23,6 +18,12 @@ namespace DotnetCamp.Instagram.Repository.Database
                 .Property(p => p.Description)
                 .HasMaxLength(200)
                 .IsRequired(false);
+
+            builder.Entity<Picture>()
+                .Property(p => p.PicIdentity)
+                .HasColumnName("FilePath")
+                .HasMaxLength(50)
+                .IsRequired(true);
 
             builder.Entity<Picture>()
                 .HasKey(p => p.Id);

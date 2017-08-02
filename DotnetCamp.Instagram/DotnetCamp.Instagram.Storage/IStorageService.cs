@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DotnetCamp.Instagram.Storage
 {
-    public interface IFileStorage
+    public interface IStorageService
     {
         Task AddAsync(params FileItem[] files);
 

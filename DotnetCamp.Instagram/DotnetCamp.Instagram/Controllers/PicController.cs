@@ -13,9 +13,9 @@ namespace DotnetCamp.Instagram.Controllers
 {
     public class PicController : Controller
     {
-        private readonly IFileStorage _fileStorage;
+        private readonly IStorageService _fileStorage;
 
-        public PicController(IFileStorage fileStorage)
+        public PicController(IStorageService fileStorage)
         {
             _fileStorage = fileStorage;
         }

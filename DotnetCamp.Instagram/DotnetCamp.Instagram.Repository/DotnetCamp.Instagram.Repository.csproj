@@ -17,7 +17,7 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DotnetCamp.Instagram.Domain\DotnetCamp.Instagram.Domain.csproj" />
     <ProjectReference Include="..\DotnetCamp.Instagram.Identity\DotnetCamp.Instagram.Identity.csproj" />
-    <ProjectReference Include="..\DotnetCamp.Instagram.Models\DotnetCamp.Instagram.Models.csproj" />
   </ItemGroup>
 </Project>
