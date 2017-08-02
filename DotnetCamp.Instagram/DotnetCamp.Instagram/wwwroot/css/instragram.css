@@ -1,4 +1,4 @@
-﻿#content {
+#content {
   position: relative;
   width: 100vw;
   display: flex;
@@ -39,4 +39,3 @@
       transform: scale(1.15) translate3d(0, 0, 0); }
     #content .post:hover ul {
       transform: translateX(0); }
-

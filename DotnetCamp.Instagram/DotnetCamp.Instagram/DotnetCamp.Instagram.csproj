@@ -14,9 +14,9 @@
 
   <ItemGroup>
     <Content Include="wwwroot\cdn\pic\empty.txt" />
-    <Content Include="wwwroot\css\instagram.scss" />
+    <Content Include="wwwroot\css\dropzone.scss" />
     <Content Include="wwwroot\css\instragram.scss" />
-    <Content Include="wwwroot\instragram.scss" />
+    <Content Include="wwwroot\css\site.min.css" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
